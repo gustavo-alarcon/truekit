@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "truekit-staging"
+  },
+  "targets": {
+    "truekit-staging": {
+      "hosting": {
+        "truekit": [
+          "truekit-staging"
+        ]
+      }
+    }
+  }
+}

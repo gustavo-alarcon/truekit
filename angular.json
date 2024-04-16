@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -90,10 +91,28 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "truekit:build:production",
+              "serveTarget": "truekit:serve:production"
+            },
+            "development": {
+              "buildTarget": "truekit:build:development",
+              "serveTarget": "truekit:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
