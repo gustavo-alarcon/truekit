@@ -1,1 +1,69 @@
-<p>home works!</p>
+<section class="hero">
+  <div class="hero-container">
+    <img
+      src="./../../../../assets/svg/polygons.svg"
+      alt="polygon"
+      class="polygons"
+    />
+    <div class="hero-content">
+      <img
+        src="./../../../../assets/svg/truekit-logo-color.svg"
+        alt="Truekit Logo"
+        class="hero-logo"
+      />
+      <app-button
+        value="REGISTRARSE"
+        subtitle="Next Generation"
+        type="primary"
+      ></app-button>
+    </div>
+  </div>
+</section>
+
+<section class="welcome">
+  <div class="welcome-title">
+    <h1>BIENVENIDO</h1>
+  </div>
+  <div class="welcome-columns">
+    <div class="welcome-description">
+      This section is used to provide a welcome message to the user
+    </div>
+    <div class="welcome-video">This section is used to display a video.</div>
+  </div>
+</section>
+
+<section class="featured-items">
+  <div class="featured-items-title">
+    <h1>DESTACADOS</h1>
+  </div>
+
+  <div class="items-container">
+    @for (item of featuredItems; track $index) {
+
+    <app-item-card
+      [images]="item.images"
+      [description]="item.description"
+      [title]="item.title"
+    ></app-item-card>
+    }
+    <!-- Add more items here -->
+  </div>
+</section>
+
+<section class="categories">
+  <div class="categories-title">
+    <h1>CATEGORIAS</h1>
+  </div>
+  <div class="categories-container">
+    @for (category of categories; track $index) {
+
+    <app-category-card
+      [image]="category.image"
+      [title]="category.title"
+    ></app-category-card>
+    }
+    <!-- Add more categories here -->
+  </div>
+</section>
+
+<section class="benefits"></section>
