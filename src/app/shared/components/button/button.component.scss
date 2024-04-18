@@ -1,8 +1,75 @@
-.button {
-  background-color: yellow;
-  padding: 12px 6px;
-  border-radius: 10px;
-  color: black;
+.button-container {
+  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  height: max-content;
+
+  .button-wrapper {
+    overflow: visible !important;
+
+    .button {
+      width: 22vw;
+      max-width: 290px;
+      min-width: 190px;
+      transition: 500ms;
+      overflow: visible;
+      cursor: pointer;
+
+      &-primary {
+        color: #2b2b2b;
+        &:hover {
+          filter: drop-shadow(8px 8px 10px skyblue);
+        }
+      }
+
+      &-secondary {
+        color: white;
+        &:hover {
+          filter: drop-shadow(8px 8px 10px #673ab7);
+        }
+      }
+    }
+
+    .value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-family: "Advent Pro", sans-serif;
+      font-optical-sizing: auto;
+      font-size: 27px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: 1.35px;
+      font-variation-settings: "wdth" 100;
+      pointer-events: none;
+
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
+
+      cursor: pointer;
+
+      &-primary {
+        color: #2b2b2b;
+      }
+
+      &-secondary {
+        color: white;
+      }
+    }
+  }
+
+  .subtitle {
+    font-family: "Advent Pro", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.8px;
+  }
 }

@@ -1,6 +1,28 @@
 <div class="button-container" [ngClass]="{ primary: type === 'primary' }">
-  <div matRipple class="button" [ngClass]="{ primary: type === 'primary' }">
-    value
+  <div matRipple class="button-wrapper">
+    @if(type === 'primary'){
+    <img
+      class="button button-primary"
+      src="./../../../../assets/images/button-primary.png"
+      alt=""
+    />
+    } @else{
+    <img
+      class="button button-secondary"
+      src="./../../../../assets/images/button-secondary.png"
+      alt=""
+    />
+    }
+    <span
+      class="value"
+      [ngClass]="{
+        'value-primary': type === 'primary',
+        'value-secondary': type === 'secondary'
+      }"
+      >{{ value | uppercase }}</span
+    >
   </div>
-  <div class="subtitle">{{ subtitle }}</div>
+  <div>
+    <span class="subtitle">{{ subtitle | uppercase }}</span>
+  </div>
 </div>
