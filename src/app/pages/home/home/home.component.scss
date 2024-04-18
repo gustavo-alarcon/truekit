@@ -41,6 +41,7 @@
   background-color: yellow;
   width: 100vw;
   color: black;
+  padding: 24px;
 
   .welcome-title {
     text-align: start;
@@ -69,6 +70,8 @@
 }
 
 .featured-items {
+  padding: 24px;
+
   .featured-items-title {
     text-align: start;
     font-size: 50px;
@@ -88,6 +91,8 @@
 }
 
 .categories {
+  padding: 24px;
+
   .categories-title {
     text-align: start;
     font-size: 50px;
@@ -103,5 +108,45 @@
     justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
+  }
+}
+
+.benefits {
+  background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: start;
+  padding: 24px;
+
+  .benefit-title {
+    text-align: start;
+    font-size: 50px;
+
+    h1 {
+      margin: 0px 24px 24px 24px;
+    }
+  }
+
+  .benefits-container {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .description {
+      width: 45%;
+    }
+
+    .benefits-list {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 50%;
+    }
   }
 }
