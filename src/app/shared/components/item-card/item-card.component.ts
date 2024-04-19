@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  Input,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 
 @Component({
@@ -8,6 +13,8 @@ import { MatRippleModule } from '@angular/material/core';
   imports: [CommonModule, MatRippleModule],
   templateUrl: './item-card.component.html',
   styleUrl: './item-card.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ItemCardComponent {
   @Input({ required: true }) title = '';

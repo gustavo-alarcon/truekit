@@ -20,9 +20,24 @@ import { BenefitCardComponent } from '../../../shared/components/benefit-card/be
 })
 export default class HomeComponent {
   public featuredItems = [
-    { images: ['www.google.com'], title: 'Google', description: 'description' },
-    { images: ['www.google.com'], title: 'Google', description: 'description' },
-    { images: ['www.google.com'], title: 'Google', description: 'description' },
+    {
+      images: ['https://picsum.photos/300/320?random=1'],
+      title: 'Google',
+      description:
+        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+    },
+    {
+      images: ['https://picsum.photos/300/320?random=2'],
+      title: 'Google',
+      description:
+        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+    },
+    {
+      images: ['https://picsum.photos/300/320?random=3'],
+      title: 'Google',
+      description:
+        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+    },
   ];
 
   public categories = [
