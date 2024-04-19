@@ -41,9 +41,15 @@ export default class HomeComponent {
   ];
 
   public categories = [
-    { image: 'www.google.com', title: 'Google', description: 'description' },
-    { image: 'www.google.com', title: 'Google', description: 'description' },
-    { image: 'www.google.com', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
+    { imageURL: '', title: 'Google', description: 'description' },
   ];
 
   public benefits = [

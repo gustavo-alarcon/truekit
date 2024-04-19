@@ -1,8 +1,27 @@
-<div class="container">
-  <div matRipple class="image">
-    <img src="image.url" alt="image.name" />
-  </div>
-  <div class="description">
-    <p>{{ description }}</p>
-  </div>
-</div>
+<swiper-container
+  pagination="true"
+  effect="coverflow"
+  grab-cursor="true"
+  centered-slides="true"
+  slides-per-view="auto"
+  coverflow-effect-rotate="50"
+  coverflow-effect-stretch="0"
+  coverflow-effect-depth="100"
+  coverflow-effect-modifier="1"
+  coverflow-effect-slide-shadows="true"
+  autoplay-delay="1000"
+  autoplay="true"
+  loop="true"
+>
+  @for (category of categories; track category.name; let i = $index) {
+  <swiper-slide>
+    <img
+      [src]="
+        category.imageURL && category.imageURL !== ''
+          ? category.imageURL
+          : 'https://swiperjs.com/demos/images/nature-' + (i + 1) + '.jpg'
+      "
+    />
+  </swiper-slide>
+  }
+</swiper-container>
