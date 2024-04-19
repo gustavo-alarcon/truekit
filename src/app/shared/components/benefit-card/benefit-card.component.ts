@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-benefit-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './benefit-card.component.html',
   styleUrl: './benefit-card.component.scss',
 })

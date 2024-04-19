@@ -1,8 +1,12 @@
 <div class="container">
-  <div matRipple class="image">
-    <img src="image.url" alt="image.name" />
+  <div class="image-container">
+    <img [src]="image" alt="" />
   </div>
+  <!-- <div class="title">
+    <h1>{{ title.slice(0, 25) }}</h1>
+  </div> -->
+
   <div class="description">
-    <p>{{ description }}</p>
+    <p>{{ title.slice(0, 50) | uppercase}} ...</p>
   </div>
 </div>
