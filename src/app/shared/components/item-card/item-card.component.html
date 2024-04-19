@@ -1,10 +1,12 @@
 <div class="container">
-  <div matRipple class="image">
-    @for (image of images; track $index) {
-    <img src="image.url" alt="image.name" />
-    }
+  <div class="image-container">
+    <img [src]="images[0]" alt="" />
   </div>
+  <div class="title">
+    <h1>{{ title.slice(0, 25) }}</h1>
+  </div>
+
   <div class="description">
-    <p>{{ description }}</p>
+    <p>{{ description.slice(0, 100) }} ...</p>
   </div>
 </div>
