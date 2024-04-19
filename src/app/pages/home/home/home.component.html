@@ -55,13 +55,11 @@
     <h1>CATEGORIAS</h1>
   </div>
   <div class="categories-container">
-    @for (category of categories; track $index) {
+    <!-- @for (category of categories; track $index) { -->
 
-    <app-category-card
-      [image]="category.image"
-      [title]="category.title"
-    ></app-category-card>
-    }
+    <app-category-card [categories]="categories"></app-category-card>
+
+    <!-- } -->
     <!-- Add more categories here -->
   </div>
 </section>
