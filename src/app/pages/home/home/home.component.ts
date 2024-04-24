@@ -4,12 +4,14 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { ItemCardComponent } from '../../../shared/components/item-card/item-card.component';
 import { CategoryCardComponent } from '../../../shared/components/category-card/category-card.component';
 import { BenefitCardComponent } from '../../../shared/components/benefit-card/benefit-card.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     ButtonComponent,
     ItemCardComponent,
     CategoryCardComponent,

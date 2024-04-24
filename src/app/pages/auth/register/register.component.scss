@@ -1,0 +1,50 @@
+.container {
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: 96px;
+  padding: 0px 24px 24px 96px;
+
+  .form-container {
+    color: #f8ee02;
+    width: 50%;
+    max-width: 400px;
+    .form-body {
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        font-size: 6px;
+
+        mat-form-field {
+          width: 100%;
+          color: #f8ee02;
+          font-family: "Orbitron";
+
+          .input-prefix {
+            font-weight: 500;
+            margin: 0rem 1rem;
+            font-size: 12px;
+          }
+
+          .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+            background: rgba($color: #fff, $alpha: 0.1);
+          }
+
+          .mdc-text-field--filled:not(.mdc-text-field--disabled)
+            .mdc-text-field__input {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .art-container {
+    width: 45%;
+  }
+}

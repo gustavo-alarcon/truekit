@@ -1,1 +1,130 @@
-<p>register works!</p>
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="form-container">
+    <div class="header">
+      <h1 class="title">BIENVENIDO</h1>
+      <p class="description">
+        Lorem ipsum dolor sit amet consectetur. Sed proin turpis nibh fermentum
+        morbi pharetra sit vitae. Vel habitasse neque tristique malesuada est
+        ullamcorper lacus. Vitae erat ultrices vitae consectetur a vestibulum
+        integer morbi. At facilisi mi purus proin cursus. Etiam quis quisque leo
+        ac elementum. Velit purus vitae ultrices aliquet amet vitae. Mauris
+        pellentesque sem sit porttitor id. Risus urna tellus nullam amet sodales
+        vitae.
+      </p>
+    </div>
+    <div class="form-body">
+      <form [formGroup]="registerFormGroup">
+        <mat-form-field appearance="fill" color="accent">
+          <span class="input-prefix" matPrefix>Nombre de usuario</span>
+          <input
+            matInput
+            type="text"
+            placeholder="xXx_carloperez_xXx"
+            formControlName="username"
+          />
+          <mat-error
+            *ngIf="registerFormGroup.get('username')?.hasError('required')"
+            >Nombre de usuario requerido</mat-error
+          >
+          <mat-error
+            *ngIf="registerFormGroup.get('username')?.hasError('invalidName')"
+            >Nombre no disponible</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill" color="accent">
+          <span class="input-prefix" matPrefix>Nombres</span>
+          <input matInput placeholder="Carlo Franco" formControlName="name" />
+          <mat-error *ngIf="registerFormGroup.get('name')?.hasError('required')"
+            >Nombre requerido</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill" color="accent">
+          <span class="input-prefix" matPrefix>Apellidos</span>
+          <input
+            matInput
+            placeholder="Pérez Sotomayor"
+            formControlName="lastname"
+          />
+          <mat-error
+            *ngIf="registerFormGroup.get('lastname')?.hasError('required')"
+            >Apellidos requerido</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill" color="accent">
+          <span class="input-prefix" matPrefix>Edado</span>
+          <input
+            matInput
+            type="number"
+            step="1"
+            min="0"
+            max="100"
+            placeholder="Edad"
+            formControlName="age"
+          />
+          <mat-error *ngIf="registerFormGroup.get('age')?.hasError('required')"
+            >Edad requerida</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill" color="accent">
+          <span class="input-prefix" matPrefix>DNI</span>
+          <input matInput placeholder="70254859" formControlName="dni" />
+          <mat-error *ngIf="registerFormGroup.get('dni')?.hasError('required')"
+            >DNI requerido</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Photo load -->
+
+        <mat-form-field appearance="fill" color="accent">
+          <span class="input-prefix" matPrefix>Correo</span>
+          <input
+            matInput
+            placeholder="carloperez@gmail.com"
+            formControlName="email"
+          />
+          <mat-error
+            *ngIf="registerFormGroup.get('email')?.hasError('required')"
+            >Correo requerido</mat-error
+          >
+          <mat-error *ngIf="registerFormGroup.get('email')?.hasError('email')"
+            >Correo inválido</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill" color="accent">
+          <span class="input-prefix" matPrefix>Contraseña</span>
+          <input matInput placeholder="***" formControlName="password" />
+          <mat-error
+            *ngIf="registerFormGroup.get('password')?.hasError('required')"
+            >Contraseña requerida</mat-error
+          >
+          <mat-error
+            *ngIf="registerFormGroup.get('password')?.hasError('pattern')"
+            >Debes tener un número, una letra mayúscula, una minúscula y un
+            caracter especial</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill" color="accent">
+          <span class="input-prefix" matPrefix>Confirmar contraseña</span>
+          <input matInput placeholder="***" formControlName="confirmPassword" />
+          <mat-error
+            *ngIf="
+              registerFormGroup.get('confirmPassword')?.hasError('required')
+            "
+            >Confirmación requerida</mat-error
+          >
+          <mat-error
+            *ngIf="
+              registerFormGroup.get('confirmPassword')?.hasError('notEqual')
+            "
+            >Las contraseñas deben ser iguales</mat-error
+          >
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div class="art-container">
+    <img src="../../../../assets/svg/polygons.svg" alt="" />
+  </div>
+</div>
+<app-footer></app-footer>
