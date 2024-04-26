@@ -1,4 +1,4 @@
-.container {
+.register-container {
   background-color: black;
   display: flex;
   flex-direction: row;
@@ -40,11 +40,26 @@
             color: white;
           }
         }
+
+        .photo-uploader {
+          p {
+            font-family: "Open Sans";
+            font-size: 0.9rem;
+          }
+        }
       }
+    }
+
+    &--mobile {
+      width: 100%;
     }
   }
 
   .art-container {
     width: 45%;
+  }
+
+  &--mobile {
+    padding: 120px 12px 12px 12px;
   }
 }

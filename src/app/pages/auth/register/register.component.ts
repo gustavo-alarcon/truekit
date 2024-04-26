@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation, inject } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -16,6 +22,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { RegisterForm } from '../../../interfaces/register.interface';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {
+  Observable,
+  catchError,
+  filter,
+  map,
+  startWith,
+  throwError,
+} from 'rxjs';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { PeruMap } from '../../../interfaces/peruMap.interface';
+import peruMap from './peru-map.json';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -23,24 +43,56 @@ import { RegisterForm } from '../../../interfaces/register.interface';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     RouterModule,
     FooterComponent,
     NavBarComponent,
+    ButtonComponent,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    PlatformModule,
+    MatAutocompleteModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export default class RegisterComponent {
-  public registerFormGroup!: FormGroup;
-
+  private platform = inject(Platform);
   private builder = inject(FormBuilder);
+  private http = inject(HttpClient);
+
+  public isMobile = computed(() => this.platform.ANDROID || this.platform.IOS);
+
+  public registerFormGroup!: FormGroup;
+  public filteredOptions!: Observable<any> | undefined;
+  public getCities = computed(() => {
+    if (!peruMap) {
+      return [];
+    } else {
+      const cities = Object.keys(peruMap);
+      console.log(cities);
+
+      return cities ? cities : [];
+    }
+  });
+
+  // private jsonData = signal<any>(null);
 
   ngOnInit() {
     this.initForm();
+
+    this.filteredOptions = this.registerFormGroup
+      .get('city')
+      ?.valueChanges.pipe(
+        startWith(''),
+        map((value) => {
+          return this.getCities().filter((option) =>
+            option.toLowerCase().includes(value.toLowerCase())
+          );
+        })
+      );
   }
 
   private initForm() {
@@ -72,10 +124,11 @@ export default class RegisterComponent {
           this.validateConfirmPassword(),
         ],
       ],
-      country: ['', Validators.required],
+      country: ['Perú', Validators.required],
       city: ['', Validators.required],
       description: ['', Validators.required],
     });
+    
   }
 
   private validateUsername(): ValidatorFn {
