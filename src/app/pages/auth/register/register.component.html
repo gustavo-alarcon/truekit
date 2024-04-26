@@ -79,7 +79,7 @@
             matInput
             type="number"
             step="1"
-            min="0"
+            min="18"
             max="100"
             placeholder="Edad"
             formControlName="age"
@@ -106,12 +106,28 @@
             Debes cargar una imagen de tu documento de identidad para ser
             procesada por los administradores.
           </p>
+          <input
+            style="display: none"
+            multiple
+            type="file"
+            #upload
+            (change)="uploadFile(upload)"
+          />
           <app-button
             value="Cargar imagen"
             type="secondary"
             subtitle=""
             icon="add_photo_alternate"
+            (click)="upload.click()"
           ></app-button>
+          <p>Total: {{ imagesState().percentage }} %✳️</p>
+          <p>Estado: {{ imagesState().state }} ✳️</p>
+          @if (this.imagesState().images.length) {
+          <div class="photos-container">
+            <img [src]="this.imagesState().images[0]" alt="DNI 1" />
+            <img [src]="this.imagesState().images[1]" alt="DNI 2" />
+          </div>
+          }
         </div>
 
         <mat-form-field appearance="fill" color="accent">
@@ -228,6 +244,30 @@
         </mat-form-field>
         <mat-form-field appearance="fill" color="accent">
           @if (isMobile()) {
+          <mat-label>Teléfono</mat-label>
+          } @if(!isMobile()) {
+          <div class="input-prefix" matPrefix>Teléfono</div>
+          }
+          <input
+            matInput
+            type="phone"
+            placeholder="999888777"
+            formControlName="phone"
+          />
+          <mat-error
+            *ngIf="registerFormGroup.get('phone')?.hasError('required')"
+            >Confirmación requerida</mat-error
+          >
+        </mat-form-field>
+        <div class="photo-uploader">
+          <p>
+            ⚠️‼️ Tu número no será mostrado en la página, solo podrá ser
+            compartido por ti al momento de hacer un trueque.
+          </p>
+        </div>
+
+        <mat-form-field appearance="fill" color="accent">
+          @if (isMobile()) {
           <mat-label>Descripción</mat-label>
           } @if(!isMobile()) {
           <div class="input-prefix" matPrefix>Descripción</div>
@@ -243,6 +283,13 @@
             >Confirmación requerida</mat-error
           >
         </mat-form-field>
+        <app-button
+          value="Registrar"
+          type="primary"
+          subtitle=""
+          icon=""
+          (click)="register()"
+        ></app-button>
       </form>
     </div>
   </div>

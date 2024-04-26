@@ -21,21 +21,13 @@ import { NavBarComponent } from '../../../shared/nav-bar/nav-bar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RegisterForm } from '../../../interfaces/register.interface';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {
-  Observable,
-  catchError,
-  filter,
-  map,
-  startWith,
-  throwError,
-} from 'rxjs';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { PeruMap } from '../../../interfaces/peruMap.interface';
+import { Observable, map, startWith } from 'rxjs';
 import peruMap from './peru-map.json';
+import { UploadImagesService } from '../../../services/upload-images.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -43,7 +35,6 @@ import peruMap from './peru-map.json';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
     RouterModule,
     FooterComponent,
     NavBarComponent,
@@ -53,6 +44,7 @@ import peruMap from './peru-map.json';
     MatSelectModule,
     PlatformModule,
     MatAutocompleteModule,
+    MatSnackBarModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -61,7 +53,8 @@ import peruMap from './peru-map.json';
 export default class RegisterComponent {
   private platform = inject(Platform);
   private builder = inject(FormBuilder);
-  private http = inject(HttpClient);
+  private uploadImageService = inject(UploadImagesService);
+  private snackBar = inject(MatSnackBar);
 
   public isMobile = computed(() => this.platform.ANDROID || this.platform.IOS);
 
@@ -77,8 +70,7 @@ export default class RegisterComponent {
       return cities ? cities : [];
     }
   });
-
-  // private jsonData = signal<any>(null);
+  public imagesState = computed(() => this.uploadImageService.getState());
 
   ngOnInit() {
     this.initForm();
@@ -128,7 +120,6 @@ export default class RegisterComponent {
       city: ['', Validators.required],
       description: ['', Validators.required],
     });
-    
   }
 
   private validateUsername(): ValidatorFn {
@@ -165,5 +156,34 @@ export default class RegisterComponent {
 
       return null;
     };
+  }
+
+  public uploadFile(input: HTMLInputElement) {
+    console.log(input.files);
+
+    if ((input.files ? input.files.length : 0) < 2) {
+      this.snackBar.open('👉🏻 Debes adjuntar dos imágenes', 'Ok', {
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (this.imagesState().images.length) {
+      this.snackBar.open(
+        '👉🏻 Ya adjuntantes dos imagenes. Por favor, actualiza la página si deseas cargar imágenes nuevas',
+        'Ok',
+      );
+      return;
+    }
+
+    this.uploadImageService.uploadFile(input, 'register');
+
+    setTimeout(() => {
+      this.imagesState();
+    }, 4000);
+  }
+
+  public register() {
+    console.log(this.imagesState());
   }
 }

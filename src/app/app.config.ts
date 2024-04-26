@@ -30,7 +30,9 @@ export const appConfig: ApplicationConfig = {
         skipInitialTransition: true,
       })
     ),
-    importProvidersFrom(provideFirebaseApp(() => initializeApp())),
+    importProvidersFrom(
+      provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
+    ),
     importProvidersFrom(
       provideAuth(() => {
         const auth = getAuth();
