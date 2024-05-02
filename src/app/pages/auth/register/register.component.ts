@@ -15,7 +15,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { NavBarComponent } from '../../../shared/nav-bar/nav-bar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,10 +24,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, debounceTime, filter, map, startWith } from 'rxjs';
 import peruMap from './peru-map.json';
 import { UploadImagesService } from '../../../services/upload-images.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { IRegisterState } from '../../../interfaces/register.interface';
+import { RegisterService } from '../../../services/register.service';
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -45,6 +49,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     PlatformModule,
     MatAutocompleteModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -55,6 +60,40 @@ export default class RegisterComponent {
   private builder = inject(FormBuilder);
   private uploadImageService = inject(UploadImagesService);
   private snackBar = inject(MatSnackBar);
+  private registerService = inject(RegisterService);
+  private router = inject(Router);
+
+  public registerState = computed(() => {
+    const state = this.registerService.getRegisterState();
+    if (state.state === 'Esperando') return state;
+
+    this.snackBar.open(state.message, 'Aceptar');
+
+    if (state.state === 'Registrado') this.router.navigateByUrl('home');
+    return state;
+  });
+
+  public usernameState = computed(() => {
+    const state = this.registerService.getUsernameState();
+
+    if (state.state === 'Revisando') return state;
+
+    if (state.state === 'Duplicado') {
+      this.registerFormGroup.get('username')?.setErrors({ invalidName: true });
+    } else {
+      this.registerFormGroup.get('username')?.setErrors(null);
+    }
+    this.snackBar.open(state.message, 'Aceptar');
+
+    return state;
+  });
+
+  #formState = signal<IRegisterState>({
+    state: 'Esperando',
+    message: 'Esperando',
+  });
+
+  public getFormState = computed(() => this.#formState());
 
   public isMobile = computed(() => this.platform.ANDROID || this.platform.IOS);
 
@@ -85,38 +124,33 @@ export default class RegisterComponent {
           );
         })
       );
+
+    this.registerFormGroup
+      .get('username')
+      ?.valueChanges.pipe(
+        debounceTime(500),
+        filter((value) => value.length > 1)
+      )
+      .subscribe((value) => {
+        this.registerService.checkUsername(value);
+      });
   }
 
   private initForm() {
     this.registerFormGroup = this.builder.group({
-      username: ['', [Validators.required, this.validateUsername()]],
+      username: ['', [Validators.required]],
       name: ['', Validators.required],
       lastname: ['', Validators.required],
       age: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       dni: ['', Validators.required],
-      dniPhotoURL: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '/^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]+$/'
-          ),
-        ],
-      ],
+      password: ['', [Validators.required, this.validatePassword()]],
       confirmPassword: [
         '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '/^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]+$/'
-          ),
-          this.validateConfirmPassword(),
-        ],
+        [Validators.required, this.validateConfirmPassword()],
       ],
-      country: ['Perú', Validators.required],
+      country: ['Perú'],
       city: ['', Validators.required],
       description: ['', Validators.required],
     });
@@ -130,12 +164,36 @@ export default class RegisterComponent {
       }
 
       // Verificar si la contraseña cumple con los criterios
-
-      if (true) {
-        return { invalidName: true };
-      }
+      this.registerService.checkUsername(username);
 
       return null;
+    };
+  }
+
+  private validatePassword(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      const password = control.value;
+      if (!password) {
+        return { required: true };
+      }
+
+      const hasNumber = /\d/.test(password);
+      const hasUppercase = /[A-Z]/.test(password);
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+      const errors: { [key: string]: boolean } = {};
+
+      if (!hasNumber) {
+        errors['missingNumber'] = true;
+      }
+      if (!hasUppercase) {
+        errors['missingUppercase'] = true;
+      }
+      if (!hasSpecialChar) {
+        errors['missingSpecialChar'] = true;
+      }
+
+      return Object.keys(errors).length !== 0 ? errors : null;
     };
   }
 
@@ -148,7 +206,6 @@ export default class RegisterComponent {
 
       // Verificar si la contraseña cumple con los criterios
       const password = this.registerFormGroup.get('password')?.value;
-      console.log(password);
 
       if (password !== confirmPassword) {
         return { notEqual: true };
@@ -171,7 +228,7 @@ export default class RegisterComponent {
     if (this.imagesState().images.length) {
       this.snackBar.open(
         '👉🏻 Ya adjuntantes dos imagenes. Por favor, actualiza la página si deseas cargar imágenes nuevas',
-        'Ok',
+        'Ok'
       );
       return;
     }
@@ -184,6 +241,41 @@ export default class RegisterComponent {
   }
 
   public register() {
-    console.log(this.imagesState());
+    // check if form is complete and user upload both images
+    console.log(this.registerFormGroup.value);
+
+    if (this.registerFormGroup.invalid) {
+      this.#formState.update(() => {
+        return {
+          state: 'Error',
+          message: '👉🏻 Debes completar todo el formulario',
+        };
+      });
+      this.snackBar.open(this.getFormState().message, 'Aceptar');
+      return;
+    }
+
+    if (this.imagesState().images.length < 2) {
+      this.#formState.update(() => {
+        return {
+          state: 'Error',
+          message:
+            '👉🏻 Debes adjuntar dos imágenes (una de cada lado de tu DNI)',
+        };
+      });
+      this.snackBar.open(this.getFormState().message, 'Aceptar');
+      return;
+    }
+
+    this.#formState.update(() => {
+      return { state: 'Cargando', message: '✳️ Registrando...' };
+    });
+
+    // this.snackBar.open(this.getFormState().message, 'Aceptar');
+
+    this.registerService.registerUser(
+      this.registerFormGroup.value,
+      this.imagesState().images
+    );
   }
 }

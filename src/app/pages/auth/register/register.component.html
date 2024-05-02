@@ -33,6 +33,7 @@
             placeholder="xXx_carloperez_xXx"
             formControlName="username"
           />
+          <mat-progress-bar mode="indeterminate" *ngIf="usernameState().state === 'Revisando'"></mat-progress-bar>
           <mat-error
             *ngIf="registerFormGroup.get('username')?.hasError('required')"
             >Nombre de usuario requerido</mat-error
@@ -103,8 +104,8 @@
         <!-- Photo load -->
         <div class="photo-uploader">
           <p>
-            Debes cargar una imagen de tu documento de identidad para ser
-            procesada por los administradores.
+            Debes cargar dos imágenes de tu documento de identidad (una de cada
+            lado) para ser procesada por los administradores.
           </p>
           <input
             style="display: none"
@@ -167,9 +168,21 @@
             >Contraseña requerida</mat-error
           >
           <mat-error
-            *ngIf="registerFormGroup.get('password')?.hasError('pattern')"
-            >Debes tener un número, una letra mayúscula, una minúscula y un
-            caracter especial</mat-error
+            *ngIf="registerFormGroup.get('password')?.hasError('missingNumber')"
+            >La contraseña debe tener por lo menos un número</mat-error
+          >
+          <mat-error
+            *ngIf="
+              registerFormGroup.get('password')?.hasError('missingUppercase')
+            "
+            >La contraseña debe tener por lo menos una mayúscula</mat-error
+          >
+          <mat-error
+            *ngIf="
+              registerFormGroup.get('password')?.hasError('missingSpecialChar')
+            "
+            >La contraseña debe tener por lo menos un caracter
+            especial</mat-error
           >
         </mat-form-field>
         <mat-form-field appearance="fill" color="accent">
@@ -290,6 +303,15 @@
           icon=""
           (click)="register()"
         ></app-button>
+
+        @if (registerState().state === 'Cargando') {
+
+        <h1>{{ registerState().state }}</h1>
+        <mat-progress-bar
+          mode="indeterminate"
+          color="accent"
+        ></mat-progress-bar>
+        }
       </form>
     </div>
   </div>
