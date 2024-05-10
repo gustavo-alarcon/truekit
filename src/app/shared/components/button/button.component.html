@@ -13,14 +13,10 @@
       alt=""
     />
     }
-    <span
-      class="value"
-      [ngClass]="{
-        'value-primary': type === 'primary',
-        'value-secondary': type === 'secondary'
-      }"
-      >{{ value | uppercase }}</span
-    >
+    <div class="value-container">
+      <span class="value">{{ value | uppercase }}</span>
+      <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+    </div>
   </div>
   <div>
     <span class="subtitle">{{ subtitle | uppercase }}</span>
