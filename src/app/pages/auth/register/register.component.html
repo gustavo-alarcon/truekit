@@ -1,216 +1,227 @@
 <app-nav-bar></app-nav-bar>
-<div
-  class="register-container"
-  [ngClass]="{ 'register-container--mobile': isMobile() }"
->
+<div class="reg-wrapper">
   <div
-    class="form-container"
-    [ngClass]="{ 'form-container--mobile': isMobile() }"
+    class="register-container"
+    [ngClass]="{ 'register-container--mobile': isMobile() }"
   >
-    <div class="header">
-      <h1 class="title">BIENVENIDO</h1>
-      <p class="description">
-        Lorem ipsum dolor sit amet consectetur. Sed proin turpis nibh fermentum
-        morbi pharetra sit vitae. Vel habitasse neque tristique malesuada est
-        ullamcorper lacus. Vitae erat ultrices vitae consectetur a vestibulum
-        integer morbi. At facilisi mi purus proin cursus. Etiam quis quisque leo
-        ac elementum. Velit purus vitae ultrices aliquet amet vitae. Mauris
-        pellentesque sem sit porttitor id. Risus urna tellus nullam amet sodales
-        vitae.
-      </p>
-    </div>
-    <div class="form-body">
-      <form [formGroup]="registerFormGroup">
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Nombre de usuario</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Nombre de usuario</div>
-          }
-          <input
-            matInput
-            type="text"
-            placeholder="xXx_carloperez_xXx"
-            formControlName="username"
-          />
-          <mat-progress-bar mode="indeterminate" *ngIf="usernameState().state === 'Revisando'"></mat-progress-bar>
-          <mat-error
-            *ngIf="registerFormGroup.get('username')?.hasError('required')"
-            >Nombre de usuario requerido</mat-error
-          >
-          <mat-error
-            *ngIf="registerFormGroup.get('username')?.hasError('invalidName')"
-            >Nombre no disponible</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Nombres</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Nombres</div>
-          }
-          <input matInput placeholder="Carlo Franco" formControlName="name" />
-          <mat-error *ngIf="registerFormGroup.get('name')?.hasError('required')"
-            >Nombre requerido</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Apellidos</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Apellidos</div>
-          }
-          <input
-            matInput
-            placeholder="Pérez Sotomayor"
-            formControlName="lastname"
-          />
-          <mat-error
-            *ngIf="registerFormGroup.get('lastname')?.hasError('required')"
-            >Apellidos requerido</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Edad</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Edad</div>
-          }
-          <input
-            matInput
-            type="number"
-            step="1"
-            min="18"
-            max="100"
-            placeholder="Edad"
-            formControlName="age"
-          />
-          <mat-error *ngIf="registerFormGroup.get('age')?.hasError('required')"
-            >Edad requerida</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>DNI</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>DNI</div>
-          }
-          <input matInput placeholder="70254859" formControlName="dni" />
-          <mat-error *ngIf="registerFormGroup.get('dni')?.hasError('required')"
-            >DNI requerido</mat-error
-          >
-        </mat-form-field>
+    <div
+      class="form-container"
+      [ngClass]="{ 'form-container--mobile': isMobile() }"
+    >
+      <div class="header">
+        <h1 class="title">BIENVENIDO</h1>
+        <p class="description">
+          Lorem ipsum dolor sit amet consectetur. Sed proin turpis nibh
+          fermentum morbi pharetra sit vitae. Vel habitasse neque tristique
+          malesuada est ullamcorper lacus. Vitae erat ultrices vitae consectetur
+          a vestibulum integer morbi. At facilisi mi purus proin cursus. Etiam
+          quis quisque leo ac elementum. Velit purus vitae ultrices aliquet amet
+          vitae. Mauris pellentesque sem sit porttitor id. Risus urna tellus
+          nullam amet sodales vitae.
+        </p>
+      </div>
+      <div class="form-body">
+        <form [formGroup]="registerFormGroup">
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Nombre de usuario</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Nombre de usuario</div>
+            }
+            <input
+              matInput
+              type="text"
+              placeholder="xXx_carloperez_xXx"
+              formControlName="username"
+            />
+            <mat-progress-bar
+              mode="indeterminate"
+              *ngIf="usernameState().state === 'Revisando'"
+            ></mat-progress-bar>
+            <mat-error
+              *ngIf="registerFormGroup.get('username')?.hasError('required')"
+              >Nombre de usuario requerido</mat-error
+            >
+            <mat-error
+              *ngIf="registerFormGroup.get('username')?.hasError('invalidName')"
+              >Nombre no disponible</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Nombres</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Nombres</div>
+            }
+            <input matInput placeholder="Carlo Franco" formControlName="name" />
+            <mat-error
+              *ngIf="registerFormGroup.get('name')?.hasError('required')"
+              >Nombre requerido</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Apellidos</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Apellidos</div>
+            }
+            <input
+              matInput
+              placeholder="Pérez Sotomayor"
+              formControlName="lastname"
+            />
+            <mat-error
+              *ngIf="registerFormGroup.get('lastname')?.hasError('required')"
+              >Apellidos requerido</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Edad</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Edad</div>
+            }
+            <input
+              matInput
+              type="number"
+              step="1"
+              min="18"
+              max="100"
+              placeholder="Edad"
+              formControlName="age"
+            />
+            <mat-error
+              *ngIf="registerFormGroup.get('age')?.hasError('required')"
+              >Edad requerida</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>DNI</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>DNI</div>
+            }
+            <input matInput placeholder="70254859" formControlName="dni" />
+            <mat-error
+              *ngIf="registerFormGroup.get('dni')?.hasError('required')"
+              >DNI requerido</mat-error
+            >
+          </mat-form-field>
 
-        <!-- Photo load -->
-        <div class="photo-uploader">
-          <p>
-            Debes cargar dos imágenes de tu documento de identidad (una de cada
-            lado) para ser procesada por los administradores.
-          </p>
-          <input
-            style="display: none"
-            multiple
-            type="file"
-            #upload
-            (change)="uploadFile(upload)"
-          />
-          <app-button
-            value="Cargar imagen"
-            type="secondary"
-            subtitle=""
-            icon="add_photo_alternate"
-            (click)="upload.click()"
-          ></app-button>
-          <p>Total: {{ imagesState().percentage }} %✳️</p>
-          <p>Estado: {{ imagesState().state }} ✳️</p>
-          @if (this.imagesState().images.length) {
-          <div class="photos-container">
-            <img [src]="this.imagesState().images[0]" alt="DNI 1" />
-            <img [src]="this.imagesState().images[1]" alt="DNI 2" />
+          <!-- Photo load -->
+          <div class="photo-uploader">
+            <p>
+              Debes cargar dos imágenes de tu documento de identidad (una de
+              cada lado) para ser procesada por los administradores.
+            </p>
+            <input
+              style="display: none"
+              multiple
+              type="file"
+              #upload
+              (change)="uploadFile(upload)"
+            />
+            <app-button
+              value="Cargar imagen"
+              type="secondary"
+              subtitle=""
+              icon="add_photo_alternate"
+              (click)="upload.click()"
+            ></app-button>
+            <p>Total: {{ imagesState().percentage }} %✳️</p>
+            <p>Estado: {{ imagesState().state }} ✳️</p>
+            @if (this.imagesState().images.length) {
+            <div class="photos-container">
+              <img [src]="this.imagesState().images[0]" alt="DNI 1" />
+              <img [src]="this.imagesState().images[1]" alt="DNI 2" />
+            </div>
+            }
           </div>
-          }
-        </div>
 
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Correo</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Correo</div>
-          }
-          <input
-            matInput
-            type="email"
-            placeholder="carloperez@gmail.com"
-            formControlName="email"
-          />
-          <mat-error
-            *ngIf="registerFormGroup.get('email')?.hasError('required')"
-            >Correo requerido</mat-error
-          >
-          <mat-error *ngIf="registerFormGroup.get('email')?.hasError('email')"
-            >Correo inválido</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Contraseña</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Contraseña</div>
-          }
-          <input
-            matInput
-            type="password"
-            placeholder="***"
-            formControlName="password"
-          />
-          <mat-error
-            *ngIf="registerFormGroup.get('password')?.hasError('required')"
-            >Contraseña requerida</mat-error
-          >
-          <mat-error
-            *ngIf="registerFormGroup.get('password')?.hasError('missingNumber')"
-            >La contraseña debe tener por lo menos un número</mat-error
-          >
-          <mat-error
-            *ngIf="
-              registerFormGroup.get('password')?.hasError('missingUppercase')
-            "
-            >La contraseña debe tener por lo menos una mayúscula</mat-error
-          >
-          <mat-error
-            *ngIf="
-              registerFormGroup.get('password')?.hasError('missingSpecialChar')
-            "
-            >La contraseña debe tener por lo menos un caracter
-            especial</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Confirmar contraseña</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Confirmar contraseña</div>
-          }
-          <input
-            matInput
-            type="password"
-            placeholder="***"
-            formControlName="confirmPassword"
-          />
-          <mat-error
-            *ngIf="
-              registerFormGroup.get('confirmPassword')?.hasError('required')
-            "
-            >Confirmación requerida</mat-error
-          >
-          <mat-error
-            *ngIf="
-              registerFormGroup.get('confirmPassword')?.hasError('notEqual')
-            "
-            >Las contraseñas deben ser iguales</mat-error
-          >
-        </mat-form-field>
-        <!-- <mat-form-field appearance="fill" color="accent">
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Correo</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Correo</div>
+            }
+            <input
+              matInput
+              type="email"
+              placeholder="carloperez@gmail.com"
+              formControlName="email"
+            />
+            <mat-error
+              *ngIf="registerFormGroup.get('email')?.hasError('required')"
+              >Correo requerido</mat-error
+            >
+            <mat-error *ngIf="registerFormGroup.get('email')?.hasError('email')"
+              >Correo inválido</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Contraseña</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Contraseña</div>
+            }
+            <input
+              matInput
+              type="password"
+              placeholder="***"
+              formControlName="password"
+            />
+            <mat-error
+              *ngIf="registerFormGroup.get('password')?.hasError('required')"
+              >Contraseña requerida</mat-error
+            >
+            <mat-error
+              *ngIf="
+                registerFormGroup.get('password')?.hasError('missingNumber')
+              "
+              >La contraseña debe tener por lo menos un número</mat-error
+            >
+            <mat-error
+              *ngIf="
+                registerFormGroup.get('password')?.hasError('missingUppercase')
+              "
+              >La contraseña debe tener por lo menos una mayúscula</mat-error
+            >
+            <mat-error
+              *ngIf="
+                registerFormGroup
+                  .get('password')
+                  ?.hasError('missingSpecialChar')
+              "
+              >La contraseña debe tener por lo menos un caracter
+              especial</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Confirmar contraseña</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Confirmar contraseña</div>
+            }
+            <input
+              matInput
+              type="password"
+              placeholder="***"
+              formControlName="confirmPassword"
+            />
+            <mat-error
+              *ngIf="
+                registerFormGroup.get('confirmPassword')?.hasError('required')
+              "
+              >Confirmación requerida</mat-error
+            >
+            <mat-error
+              *ngIf="
+                registerFormGroup.get('confirmPassword')?.hasError('notEqual')
+              "
+              >Las contraseñas deben ser iguales</mat-error
+            >
+          </mat-form-field>
+          <!-- <mat-form-field appearance="fill" color="accent">
           @if (isMobile()) {
           <mat-label>País</mat-label>
           } @if(!isMobile()) {
@@ -233,90 +244,98 @@
             >Las contraseñas deben ser iguales</mat-error
           >
         </mat-form-field> -->
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Ciudad</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Ciudad</div>
-          }
-          <input
-            type="text"
-            placeholder="Ciudad"
-            matInput
-            formControlName="city"
-            [matAutocomplete]="auto"
-          />
-          <mat-autocomplete #auto="matAutocomplete">
-            @for (option of filteredOptions | async; track option) {
-            <mat-option [value]="option">{{ option }}</mat-option>
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Ciudad</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Ciudad</div>
             }
-          </mat-autocomplete>
-          <mat-error *ngIf="registerFormGroup.get('city')?.hasError('required')"
-            >Confirmación requerida</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Teléfono</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Teléfono</div>
+            <input
+              type="text"
+              placeholder="Ciudad"
+              matInput
+              formControlName="city"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete #auto="matAutocomplete">
+              @for (option of filteredOptions | async; track option) {
+              <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-autocomplete>
+            <mat-error
+              *ngIf="registerFormGroup.get('city')?.hasError('required')"
+              >Confirmación requerida</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Teléfono</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Teléfono</div>
+            }
+            <input
+              matInput
+              type="phone"
+              placeholder="999888777"
+              formControlName="phone"
+            />
+            <mat-error
+              *ngIf="registerFormGroup.get('phone')?.hasError('required')"
+              >Confirmación requerida</mat-error
+            >
+          </mat-form-field>
+          <div class="photo-uploader">
+            <p>
+              ⚠️‼️ Tu número no será mostrado en la página, solo podrá ser
+              compartido por ti al momento de hacer un trueque.
+            </p>
+          </div>
+
+          <mat-form-field appearance="fill" color="accent">
+            @if (isMobile()) {
+            <mat-label>Descripción</mat-label>
+            } @if(!isMobile()) {
+            <div class="input-prefix" matPrefix>Descripción</div>
+            }
+            <textarea
+              matInput
+              rows="4"
+              placeholder="Agrega una descripción ..."
+              formControlName="description"
+            ></textarea>
+            <mat-error
+              *ngIf="registerFormGroup.get('description')?.hasError('required')"
+              >Confirmación requerida</mat-error
+            >
+          </mat-form-field>
+          <app-button
+            value="Registrar"
+            type="primary"
+            subtitle=""
+            icon=""
+            (click)="register()"
+          ></app-button>
+
+          @if (registerState().state === 'Cargando') {
+
+          <h1>{{ registerState().state }}</h1>
+          <mat-progress-bar
+            mode="indeterminate"
+            color="accent"
+          ></mat-progress-bar>
           }
-          <input
-            matInput
-            type="phone"
-            placeholder="999888777"
-            formControlName="phone"
-          />
-          <mat-error
-            *ngIf="registerFormGroup.get('phone')?.hasError('required')"
-            >Confirmación requerida</mat-error
-          >
-        </mat-form-field>
-        <div class="photo-uploader">
-          <p>
-            ⚠️‼️ Tu número no será mostrado en la página, solo podrá ser
-            compartido por ti al momento de hacer un trueque.
-          </p>
-        </div>
-
-        <mat-form-field appearance="fill" color="accent">
-          @if (isMobile()) {
-          <mat-label>Descripción</mat-label>
-          } @if(!isMobile()) {
-          <div class="input-prefix" matPrefix>Descripción</div>
-          }
-          <textarea
-            matInput
-            rows="4"
-            placeholder="Agrega una descripción ..."
-            formControlName="description"
-          ></textarea>
-          <mat-error
-            *ngIf="registerFormGroup.get('description')?.hasError('required')"
-            >Confirmación requerida</mat-error
-          >
-        </mat-form-field>
-        <app-button
-          value="Registrar"
-          type="primary"
-          subtitle=""
-          icon=""
-          (click)="register()"
-        ></app-button>
-
-        @if (registerState().state === 'Cargando') {
-
-        <h1>{{ registerState().state }}</h1>
-        <mat-progress-bar
-          mode="indeterminate"
-          color="accent"
-        ></mat-progress-bar>
-        }
-      </form>
+        </form>
+      </div>
+    </div>
+    <div class="art-container" *ngIf="!isMobile()">
+      <img class="poly-svg" src="../../../../assets/svg/polygons.svg" alt="" />
+      <img
+        class="logo-svg"
+        src="../../../../assets/svg/truekit-logo-color.svg"
+        alt=""
+      />
     </div>
   </div>
-  <div class="art-container" *ngIf="!isMobile()">
-    <img src="../../../../assets/svg/polygons.svg" alt="" />
-  </div>
 </div>
+
 <app-footer></app-footer>

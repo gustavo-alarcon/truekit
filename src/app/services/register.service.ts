@@ -81,4 +81,16 @@ export class RegisterService {
       });
     }
   }
+
+  public initSignals() {
+    this.#registerState.set({
+      state: 'Esperando',
+      message: '',
+    });
+
+    this.#usernameState.set({
+      state: 'Esperando',
+      message: '',
+    });
+  }
 }

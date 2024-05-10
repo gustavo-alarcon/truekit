@@ -1,5 +1,13 @@
-.register-container {
+.reg-wrapper {
   background-color: black;
+}
+.register-container {
+  min-height: 100vh;
+  background: url("./../../../../assets/images/bg.png");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -72,5 +80,25 @@
 
   &--mobile {
     padding: 120px 12px 12px 12px;
+  }
+}
+
+.art-container {
+  position: relative;
+
+  .poly-svg {
+    position: absolute;
+    width: 120%;
+    object-fit: contain;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .logo-svg {
+    position: absolute;
+    width: 80%;
+    object-fit: contain;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

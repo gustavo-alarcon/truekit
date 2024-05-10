@@ -76,7 +76,7 @@ export default class RegisterComponent {
   public usernameState = computed(() => {
     const state = this.registerService.getUsernameState();
 
-    if (state.state === 'Revisando') return state;
+    if (state.state === 'Esperando') return state;
 
     if (state.state === 'Duplicado') {
       this.registerFormGroup.get('username')?.setErrors({ invalidName: true });
@@ -113,6 +113,7 @@ export default class RegisterComponent {
 
   ngOnInit() {
     this.initForm();
+    this.registerService.initSignals();
 
     this.filteredOptions = this.registerFormGroup
       .get('city')
