@@ -1,1 +1,219 @@
-<p>admin works!</p>
+<app-nav-bar></app-nav-bar>
+<div class="user-list-container">
+  <div class="header">
+    <h1>Lista de usuarios</h1>
+    <div class="search">
+      <mat-form-field appearance="outline">
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-label>Buscar</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Escriba el nombre ... "
+          [formControl]="searchControl"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="table-container">
+    <table mat-table [dataSource]="filteredUsers" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position" sticky>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="border-right: 1px solid #ccc"
+        >
+          No.
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element; let i = index"
+          style="border-right: 1px solid #ccc"
+        >
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let element">
+          @if (element.status == 'active') {
+          <span
+            style="
+              width: 100px;
+              border-radius: 4px;
+              background-color: green;
+              padding: 4px 8px;
+              color: white;
+            "
+            >Activo</span
+          >
+          } @if (element.status == 'inactive') {
+          <span
+            style="
+              width: 100px;
+              border-radius: 4px;
+              background-color: red;
+              padding: 4px 8px;
+              color: white;
+            "
+            >Inactivo</span
+          >
+          } @if (element.status == 'pending') {
+          <span
+            style="
+              width: 100px;
+              border-radius: 4px;
+              background-color: purple;
+              padding: 4px 8px;
+              color: white;
+            "
+            >Pendiente</span
+          >
+          }
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+        <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nombres</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-DNIner matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef>Apellidos</th>
+        <td mat-cell *matCellDef="let element">{{ element.lastname }}</td>
+      </ng-DNIner>
+
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef>DNI</th>
+        <td mat-cell *matCellDef="let element">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: start;
+              gap: 12px;
+              padding: 8px 8px;
+            "
+          >
+            <div style="display: flex; align-items: center; gap: 8px">
+              <mat-icon>badge</mat-icon>
+              <span style="font-weight: 400">{{ element.dni }}</span>
+            </div>
+
+            <span>
+              <button mat-raised-button color="accent">
+                <a [href]="element.dniPhotoURL[0]" target="_blank">Foto 1</a>
+              </button>
+              /
+              <button mat-raised-button color="accent">
+                <a [href]="element.dniPhotoURL[1]" target="_blank">Foto 2</a>
+              </button>
+            </span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef>Ciudad</th>
+        <td mat-cell *matCellDef="let element">{{ element.city }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef>Última actualización</th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            {{
+              element["updatedAt"]
+                ? (element["updatedAt"].seconds * 1000 | date : "dd-MM-yyy")
+                : "---"
+            }}
+          </div>
+          <div style="font-size: 10px">
+            ({{
+              element["updatedAt"]
+                ? (element["updatedAt"].seconds * 1000 | date : "hh:mm aa")
+                : "---"
+            }})
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="actions" stickyEnd>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="border-left: 1px solid #ccc"
+        >
+          Acciones
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          style="border-left: 1px solid #ccc"
+        >
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button
+              mat-menu-item
+              *ngIf="
+                element.status == 'inactive' || element.status == 'pending'
+              "
+              (click)="markAsActive(element)"
+            >
+              Marcar como activo
+            </button>
+            <button
+              mat-menu-item
+              *ngIf="element.status == 'active' || element.status == 'pending'"
+              (click)="markAsInactive(element)"
+            >
+              Marcar como inactivo
+            </button>
+            <button
+              mat-menu-item
+              *ngIf="element.status == 'inactive' || element.status == 'active'"
+              (click)="markAsPending(element)"
+            >
+              Marcar como pendiente
+            </button>
+            <button mat-menu-item (click)="deleteUser(element)">
+              Eliminar
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of users"
+    >
+    </mat-paginator>
+  </div>
+</div>
+<app-footer></app-footer>
