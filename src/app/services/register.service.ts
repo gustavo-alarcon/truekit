@@ -6,6 +6,7 @@ import {
   doc,
   getDocs,
   query,
+  serverTimestamp,
   setDoc,
   where,
 } from '@angular/fire/firestore';
@@ -45,6 +46,9 @@ export class RegisterService {
     const user: IRegisterUser = {
       ...form,
       dniPhotoURL: [...images],
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+      status: 'pending',
     };
 
     const usersRef = collection(this.#firestore, 'users');

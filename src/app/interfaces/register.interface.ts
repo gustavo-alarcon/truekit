@@ -1,3 +1,5 @@
+import { FieldValue, Timestamp } from '@angular/fire/firestore';
+
 export interface IRegisterUser {
   name: string;
   lastname: string;
@@ -9,7 +11,10 @@ export interface IRegisterUser {
   password: string;
   confirmPassword: string;
   description: string;
+  status: 'active' | 'inactive' | 'pending';
   country: string;
+  createdAt: FieldValue;
+  updatedAt: FieldValue;
 }
 
 export interface IRegisterForm extends Omit<IRegisterUser, 'dniPhotoURL'> {}
