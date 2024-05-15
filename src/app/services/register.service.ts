@@ -16,12 +16,14 @@ import {
   IRegisterUser,
   IUsernameState,
 } from '../interfaces/register.interface';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegisterService {
-  #firestore = inject(Firestore);
+  #firestore = inject(Firestore); //#endregion
+  #authServicet = inject(AuthService);
 
   #registerState = signal<IRegisterState>({
     state: 'Esperando',
@@ -43,20 +45,10 @@ export class RegisterService {
       message: '✳️ Registrando usuario',
     });
 
-    const user: IRegisterUser = {
-      ...form,
-      dniPhotoURL: [...images],
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-      status: 'pending',
-    };
-
-    const usersRef = collection(this.#firestore, 'users');
-
-    addDoc(usersRef, user).finally(() => {
+    this.#authServicet.createUser(form, images).then(() => {
       this.#registerState.set({
         state: 'Registrado',
-        message: `✅ Usuario: ${user.username} | Registrado satisfactoriamente!`,
+        message: `✅ Usuario: ${form.username} | Registrado satisfactoriamente!`,
       });
     });
   }

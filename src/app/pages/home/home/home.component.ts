@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ItemCardComponent } from '../../../shared/components/item-card/item-card.component';
 import { CategoryCardComponent } from '../../../shared/components/category-card/category-card.component';
 import { BenefitCardComponent } from '../../../shared/components/benefit-card/benefit-card.component';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.component.scss',
 })
 export default class HomeComponent {
+  #authservice = inject(AuthService);
+
   public featuredItems = [
     {
       images: ['https://picsum.photos/300/320?random=1'],
