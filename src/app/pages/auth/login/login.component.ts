@@ -13,13 +13,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterModule } from '@angular/router';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { NavBarComponent } from '../../../shared/nav-bar/nav-bar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ import { AuthService } from '../../../services/auth.service';
     MatSnackBarModule,
     MatProgressBarModule,
     MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -46,10 +48,14 @@ export default class LoginComponent {
   private platform = inject(Platform);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  #router = inject(Router);
+  #snackBar = inject(MatSnackBar);
 
   public isMobile = computed(() => this.platform.ANDROID || this.platform.IOS);
 
   public loginFormGroup!: FormGroup;
+
+  public user$ = this.authService.user$;
 
   ngOnInit() {
     this.initForm();
@@ -63,9 +69,18 @@ export default class LoginComponent {
   }
 
   login() {
-    this.authService.login(
-      this.loginFormGroup.value['email'],
-      this.loginFormGroup.value['password']
-    );
+    this.authService
+      .login(
+        this.loginFormGroup.value['email'],
+        this.loginFormGroup.value['password']
+      )
+      .then((userCredential) => {
+        // Signed in
+        if (userCredential) {
+          this.#router.navigate(['/my-account']);
+        } else {
+          this.#snackBar.open('Error al iniciar sesión', 'Aceptar');
+        }
+      });
   }
 }

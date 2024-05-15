@@ -104,4 +104,9 @@ export class AuthService {
         console.log(errorMessage);
       });
   }
+
+  reset() {
+    this.user$ = of(undefined);
+    this.user = {} as User;
+  }
 }
