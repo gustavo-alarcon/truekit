@@ -39,12 +39,23 @@
               } @if(!isMobile()) {
               <div class="input-prefix" matPrefix>Contraseña</div>
               }
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="togglePasswordVisibility()"
+                aria-label="Toggle password visibility"
+              >
+                <mat-icon>{{
+                  hidePassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
               <input
                 matInput
-                type="password"
+                type="{{ hidePassword ? 'password' : 'text' }}"
                 placeholder="***"
                 formControlName="password"
               />
+
               <mat-error
                 *ngIf="loginFormGroup.get('password')?.hasError('required')"
                 >Contraseña requerida</mat-error

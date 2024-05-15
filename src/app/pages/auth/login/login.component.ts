@@ -45,31 +45,35 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './login.component.scss',
 })
 export default class LoginComponent {
-  private platform = inject(Platform);
-  private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  #platform = inject(Platform);
+  #fb = inject(FormBuilder);
+  #authService = inject(AuthService);
   #router = inject(Router);
   #snackBar = inject(MatSnackBar);
 
-  public isMobile = computed(() => this.platform.ANDROID || this.platform.IOS);
+  public isMobile = computed(
+    () => this.#platform.ANDROID || this.#platform.IOS
+  );
 
   public loginFormGroup!: FormGroup;
 
-  public user$ = this.authService.user$;
+  public user$ = this.#authService.user$;
+
+  public hidePassword: boolean = true;
 
   ngOnInit() {
     this.initForm();
   }
 
   initForm() {
-    this.loginFormGroup = this.fb.group({
+    this.loginFormGroup = this.#fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
 
   login() {
-    this.authService
+    this.#authService
       .login(
         this.loginFormGroup.value['email'],
         this.loginFormGroup.value['password']
@@ -82,5 +86,9 @@ export default class LoginComponent {
           this.#snackBar.open('Error al iniciar sesión', 'Aceptar');
         }
       });
+  }
+
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
   }
 }
