@@ -8,6 +8,7 @@ export interface IRegisterUser {
   dniPhotoURL: Array<string>;
   phone: string;
   city: string;
+  email: string;
   password: string;
   confirmPassword: string;
   description: string;

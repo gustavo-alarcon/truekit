@@ -1,1 +1,62 @@
-<p>login works!</p>
+<app-nav-bar></app-nav-bar>
+<div class="login-wrapper">
+  <div class="login-container">
+    <div class="login-card" [ngClass]="{ 'login-card--mobile': isMobile() }">
+      <div
+        class="form-container"
+        [ngClass]="{ 'form-container--mobile': isMobile() }"
+      >
+        <div class="header">
+          <h1 class="title">LOGIN</h1>
+        </div>
+        <img
+          src="../../../../assets/svg/line-separator-start.svg"
+          alt="separator"
+        />
+        <div class="form-body">
+          <form [formGroup]="loginFormGroup">
+            <mat-form-field appearance="fill" color="accent">
+              @if (isMobile()) {
+              <mat-label>Correo</mat-label>
+              } @if(!isMobile()) {
+              <div class="input-prefix" matPrefix>Correo</div>
+              }
+              <input
+                matInput
+                type="text"
+                placeholder="usuario@gmail.com"
+                formControlName="email"
+              />
+              <mat-error
+                *ngIf="loginFormGroup.get('email')?.hasError('required')"
+                >Correo requerido</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" color="accent">
+              @if (isMobile()) {
+              <mat-label>Contraseña</mat-label>
+              } @if(!isMobile()) {
+              <div class="input-prefix" matPrefix>Contraseña</div>
+              }
+              <input
+                matInput
+                type="password"
+                placeholder="***"
+                formControlName="password"
+              />
+              <mat-error
+                *ngIf="loginFormGroup.get('password')?.hasError('required')"
+                >Contraseña requerida</mat-error
+              >
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="login()">INGRESAR</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

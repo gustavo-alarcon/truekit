@@ -146,10 +146,17 @@ export default class RegisterComponent {
       dni: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, this.validatePassword()]],
+      password: [
+        '',
+        [Validators.required, this.validatePassword(), Validators.minLength(6)],
+      ],
       confirmPassword: [
         '',
-        [Validators.required, this.validateConfirmPassword()],
+        [
+          Validators.required,
+          this.validateConfirmPassword(),
+          Validators.minLength(6),
+        ],
       ],
       country: ['Perú'],
       city: ['', Validators.required],

@@ -7,8 +7,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./pages/home/home/home.component'),
+        loadComponent: () => import('./pages/home/home/home.component'),
       },
       {
         path: 'item-list',
@@ -26,6 +25,10 @@ export const routes: Routes = [
           import('./pages/home/item-exchange/item-exchange.component'),
       },
     ],
+  },
+  {
+    path: 'my-account',
+    loadComponent: () => import('./pages/my-account/my-account.component'),
   },
   {
     path: 'admin',
