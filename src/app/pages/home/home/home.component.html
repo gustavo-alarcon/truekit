@@ -72,12 +72,12 @@
   </div>
 
   <div class="items-container">
-    @for (item of featuredItems; track $index) {
+    @for (item of featuredItems | async; track $index) {
 
     <app-item-card
       [images]="item.images"
       [description]="item.description"
-      [title]="item.title"
+      [title]="item.name"
     ></app-item-card>
     }
     <!-- Add more items here -->

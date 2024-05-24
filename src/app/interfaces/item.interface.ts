@@ -1,9 +1,9 @@
-import { FieldValue } from '@angular/fire/firestore';
+import { FieldValue, Timestamp } from '@angular/fire/firestore';
 
 export interface IItemForm {
   name: string;
   brand: string;
-  dateLaunch: Date;
+  launchDate: Date;
   status: string;
   isLimitedEdition: string;
   category: string;
@@ -14,8 +14,30 @@ export interface IItemForm {
   description: string;
 }
 
-export interface IItem extends IItemForm {
+export interface IItemDTO extends IItemForm {
   id?: string;
+  ownerId: string;
+  exchangeId: string;
+  requesterId: string;
+  images: string[];
+  state: 'ready' | 'in-exchange' | 'exchanged';
+  createdAt: FieldValue;
+  updatedAt: FieldValue;
+}
+
+export interface IItem {
+  id?: string;
+  name: string;
+  brand: string;
+  status: string;
+  isLimitedEdition: string;
+  category: string;
+  franchise: string;
+  serialNumber: string;
+  sku: string;
+  withBox: string;
+  description: string;
+  launchDate: Timestamp;
   ownerId: string;
   exchangeId: string;
   requesterId: string;
@@ -27,6 +49,6 @@ export interface IItem extends IItemForm {
 
 export interface IItemSignal {
   state: 'pending' | 'registered' | 'error' | 'registering';
-  data: IItem | null;
+  data: IItemDTO | null;
   error: string;
 }

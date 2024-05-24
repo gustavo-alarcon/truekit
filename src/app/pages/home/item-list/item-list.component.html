@@ -1,2 +1,133 @@
+<app-nav-bar></app-nav-bar>
+<div
+  class="create-container"
+  [ngClass]="{
+    'create-container--mobile': isMobile(),
+    'create-container--desktop': !isMobile()
+  }"
+>
+  <div class="data-container">
+    <div class="header">
+      <div class="title-container">
+        <button mat-icon-button [routerLink]="['/my-account']">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h2 class="title">Todos los artículos</h2>
+        <button mat-raised-button color="primary" (click)="toggleViewType()">
+          <mat-icon style="color: white">{{
+            viewType === "table" ? "image" : "table"
+          }}</mat-icon>
+          {{ viewType === "table" ? "Vistas de imánges" : "Vistas de tabla" }}
+        </button>
+      </div>
+      <img
+        src="../../../../assets/svg/line-separator-start-yellow.svg"
+        alt="separator"
+      />
 
-<p>item-list works!</p>
+      <mat-form-field appearance="outline">
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-label>Buscar</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Escriba el nombre ... "
+          [formControl]="searchControl"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="images-container" *ngIf="viewType === 'images'">
+      @for (item of items; track $index;) {
+      <app-item-card
+        [images]="item.images"
+        [description]="item.description"
+        [title]="item.name"
+        [routerLink]="['/home/item-detail', item.id]"
+      ></app-item-card>
+      }
+    </div>
+
+    <div *ngIf="viewType === 'table'" style="width: 100%">
+      <table mat-table [dataSource]="filteredItems" class="mat-elevation-z8">
+        <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position" sticky>
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            style="border-right: 1px solid #ccc"
+          >
+            No.
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element; let i = index"
+            style="border-right: 1px solid #ccc"
+          >
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>Categoría</th>
+          <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="franchise">
+          <th mat-header-cell *matHeaderCellDef>Franquicia</th>
+          <td mat-cell *matCellDef="let element">{{ element.franchise }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="sku">
+          <th mat-header-cell *matHeaderCellDef>SKU</th>
+          <td mat-cell *matCellDef="let element">{{ element.sku }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>Creado</th>
+          <td mat-cell *matCellDef="let element">
+            <div>
+              {{
+                element["createdAt"]
+                  ? (element["createdAt"].seconds * 1000 | date : "dd-MM-yyy")
+                  : "---"
+              }}
+            </div>
+            <div style="font-size: 10px">
+              ({{
+                element["createdAt"]
+                  ? (element["createdAt"].seconds * 1000 | date : "hh:mm aa")
+                  : "---"
+              }})
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of items"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

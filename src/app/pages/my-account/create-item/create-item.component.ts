@@ -53,7 +53,7 @@ import { RouterModule } from '@angular/router';
     MatButtonToggleModule,
     MatButtonModule,
     MatProgressBar,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './create-item.component.html',
   styleUrl: './create-item.component.scss',
@@ -167,10 +167,9 @@ export default class CreateItemComponent implements OnInit {
     }
 
     // create item
-
     this.#itemService.createItem(
       this.newItemFormGroup.value,
-      this.photoURLList
+      this.imagesState().images
     );
   }
 }

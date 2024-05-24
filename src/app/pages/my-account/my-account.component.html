@@ -146,11 +146,12 @@
         ></app-button>
       </div>
       <div class="items-container">
-        @for (item of itemList; track $index) {
+        @for (item of (itemList | async) ; track $index) {
         <app-item-card
           [images]="item.images"
           [description]="item.description"
-          [title]="item.title"
+          [title]="item.name"
+          [routerLink]="['/home/item-detail', item.id]"
         ></app-item-card>
         }
       </div>

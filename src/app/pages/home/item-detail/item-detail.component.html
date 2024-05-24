@@ -1,1 +1,112 @@
-<p>item-detail works!</p>
+<app-nav-bar></app-nav-bar>
+<div
+  class="detail-container"
+  [ngClass]="{
+    'detail-container--mobile': isMobile(),
+    'detail-container--desktop': !isMobile()
+  }"
+>
+  <div class="data-container">
+    <div class="header">
+      <div class="title-container">
+        <button mat-icon-button [routerLink]="['/my-account']">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h2 class="title">{{ item.name }}</h2>
+      </div>
+      <img
+        src="../../../../assets/svg/line-separator-start-yellow.svg"
+        alt="separator"
+      />
+    </div>
+
+    <div class="item-container">
+      <div
+        class="images-container"
+        [ngClass]="{
+          'images-container--mobile': isMobile(),
+          'images-container--desktop': !isMobile()
+        }"
+      >
+        @for (image of item.images; track $index;) {
+        <div class="item-photo">
+          <img [src]="image" alt="" />
+          <a [href]="image" target="_blank">
+            <button mat-mini-fab class="delete">
+              <mat-icon>preview</mat-icon>
+            </button>
+          </a>
+        </div>
+        }
+      </div>
+
+      <div
+        class="info-container"
+        [ngClass]="{
+          'info-container--mobile': isMobile(),
+          'info-container--desktop': !isMobile()
+        }"
+      >
+        <div class="info-cell">
+          <div class="title">Nombre</div>
+          <div class="value">{{ item.name }}</div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">Marca</div>
+          <div class="value">{{ item.brand }}</div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">Año de lanzamiento</div>
+          <div class="value">
+            {{ item.launchDate["seconds"] * 1000 | date : "dd/MM/yyyy" }}
+          </div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">Estado</div>
+          <div class="value">{{ item.state }}</div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">Edición limitada</div>
+          <div class="value">
+            {{ item.isLimitedEdition }}
+          </div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">Categoría</div>
+          <div class="value">{{ item.category }}</div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">Franquicia</div>
+          <div class="value">{{ item.franchise }}</div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">Caja original</div>
+          <div class="value">{{ item.withBox }}</div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">Númerode serie</div>
+          <div class="value">{{ item.serialNumber }}</div>
+        </div>
+
+        <div class="info-cell">
+          <div class="title">SKU</div>
+          <div class="value">{{ item.sku }}</div>
+        </div>
+
+        <div class="info-cell-description">
+          <div class="title">Descripción</div>
+          <div class="value">{{ item.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,4 +1,4 @@
-import { FieldValue, Timestamp } from '@angular/fire/firestore';
+import { FieldValue } from '@angular/fire/firestore';
 
 export interface IRegisterUser {
   name: string;

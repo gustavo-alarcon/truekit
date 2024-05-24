@@ -9,6 +9,9 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { MatRippleModule } from '@angular/material/core';
 import { ItemCardComponent } from '../../shared/components/item-card/item-card.component';
 import { RouterModule } from '@angular/router';
+import { ItemsService } from '../../services/items.service';
+import { Observable, of, tap } from 'rxjs';
+import { IItem } from '../../interfaces/item.interface';
 
 export interface IRequest {
   username: string;
@@ -35,13 +38,14 @@ export interface IExchange {
     MatIconModule,
     MatProgressBarModule,
     MatRippleModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.scss',
 })
 export default class MyAccountComponent {
   #authService = inject(AuthService);
+  #itemService = inject(ItemsService);
 
   public user$ = this.#authService.user$;
 
@@ -167,44 +171,50 @@ export default class MyAccountComponent {
     },
   ];
 
-  public itemList = [
-    {
-      images: ['https://picsum.photos/300/320?random=1'],
-      title: 'Google',
-      description:
-        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    },
-    {
-      images: ['https://picsum.photos/300/320?random=2'],
-      title: 'Google',
-      description:
-        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    },
-    {
-      images: ['https://picsum.photos/300/320?random=3'],
-      title: 'Google',
-      description:
-        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    },
-    {
-      images: ['https://picsum.photos/300/320?random=1'],
-      title: 'Google',
-      description:
-        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    },
-    {
-      images: ['https://picsum.photos/300/320?random=2'],
-      title: 'Google',
-      description:
-        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    },
-    {
-      images: ['https://picsum.photos/300/320?random=3'],
-      title: 'Google',
-      description:
-        'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    },
-  ];
+  itemList: Observable<IItem[]> = of([]);
 
-  constructor() {}
+  // public itemList = [
+  //   {
+  //     images: ['https://picsum.photos/300/320?random=1'],
+  //     title: 'Google',
+  //     description:
+  //       'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+  //   },
+  //   {
+  //     images: ['https://picsum.photos/300/320?random=2'],
+  //     title: 'Google',
+  //     description:
+  //       'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+  //   },
+  //   {
+  //     images: ['https://picsum.photos/300/320?random=3'],
+  //     title: 'Google',
+  //     description:
+  //       'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+  //   },
+  //   {
+  //     images: ['https://picsum.photos/300/320?random=1'],
+  //     title: 'Google',
+  //     description:
+  //       'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+  //   },
+  //   {
+  //     images: ['https://picsum.photos/300/320?random=2'],
+  //     title: 'Google',
+  //     description:
+  //       'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+  //   },
+  //   {
+  //     images: ['https://picsum.photos/300/320?random=3'],
+  //     title: 'Google',
+  //     description:
+  //       'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+  //   },
+  // ];
+
+  constructor() {
+    this.itemList = this.#itemService
+      .getLoggedUserItems()
+      .pipe(tap((items) => console.log('hola', items)));
+  }
 }

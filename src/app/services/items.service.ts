@@ -1,15 +1,26 @@
 import { Injectable, OnDestroy, computed, inject, signal } from '@angular/core';
-import { IItem, IItemForm, IItemSignal } from '../interfaces/item.interface';
+import {
+  IItem,
+  IItemDTO,
+  IItemForm,
+  IItemSignal,
+} from '../interfaces/item.interface';
 import { AuthService } from './auth.service';
 import {
   Firestore,
   addDoc,
   collection,
+  collectionData,
   doc,
+  docData,
+  limit,
+  orderBy,
+  query,
   serverTimestamp,
   setDoc,
+  where,
 } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +43,47 @@ export class ItemsService implements OnDestroy {
 
   public itemState = computed(() => this.#item());
 
+  getLoggedUserItems(): Observable<IItem[]> {
+    // first retrive user id
+    return this.#authService.user$.pipe(
+      switchMap((user) => {
+        if (user) {
+          const itemsRef = collection(this.#firestore, 'items');
+          const q = query(
+            itemsRef,
+            orderBy('createdAt', 'desc'),
+            where('ownerId', '==', user?.id)
+          );
+
+          return collectionData(q, { idField: 'id' }) as Observable<IItem[]>;
+        } else {
+          return of([]);
+        }
+      })
+    );
+  }
+
+  getFeaturedItems(): Observable<IItem[]> {
+    return this.#authService.user$.pipe(
+      switchMap((user) => {
+        if (user) {
+          const itemsRef = collection(this.#firestore, 'items');
+          const q = query(itemsRef, orderBy('createdAt', 'desc'), limit(8));
+
+          return collectionData(q, { idField: 'id' }) as Observable<IItem[]>;
+        } else {
+          return of([]);
+        }
+      })
+    );
+  }
+
+  getItemById(id: string): Observable<IItem> {
+    const itemsRef = doc(this.#firestore, 'items', id);
+
+    return docData(itemsRef) as Observable<IItem>;
+  }
+
   createItem(form: IItemForm, images: string[]) {
     this.#subscriptions.add(
       // first retrive user id
@@ -45,7 +97,7 @@ export class ItemsService implements OnDestroy {
           });
 
           // construct Item data
-          const data: IItem = {
+          const data: IItemDTO = {
             ...form,
             ownerId: user.id,
             requesterId: '',

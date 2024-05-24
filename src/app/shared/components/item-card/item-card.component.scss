@@ -27,12 +27,21 @@
   }
 
   .image-container {
+    position: relative;
     width: 20vw;
     min-width: 200px;
     height: 320px;
     clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
     transition: 500ms;
     cursor: pointer;
+
+    img {
+      height: 120%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   .image-container:hover {
