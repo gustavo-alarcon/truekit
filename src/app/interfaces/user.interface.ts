@@ -9,6 +9,7 @@ export interface IUser {
   dniPhotoURL: Array<string>;
   phone: string;
   city: string;
+  role: string;
   password: string;
   confirmPassword: string;
   description: string;

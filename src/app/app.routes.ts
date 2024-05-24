@@ -31,6 +31,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/my-account/my-account.component'),
   },
   {
+    path: 'create-item',
+    loadComponent: () =>
+      import('./pages/my-account/create-item/create-item.component'),
+  },
+  {
     path: 'admin',
     loadComponent: () => import('./pages/admin/admin.component'),
     children: [

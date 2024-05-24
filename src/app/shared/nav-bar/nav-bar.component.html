@@ -22,9 +22,18 @@
     {{ user ? user.username : " LOGIN " }}
   </button>
   <button
-    mat-button
+    mat-icon-button
     color="accent"
-    *ngIf="user$ | async"
+    *ngIf="user && user.role === 'admin'"
+    [routerLink]="['/admin']"
+    style="color: white"
+  >
+    <mat-icon>admin_panel_settings</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    color="accent"
+    *ngIf="user"
     (click)="logout()"
     style="color: white"
   >

@@ -1,0 +1,196 @@
+.create-container {
+  background-color: black;
+  min-height: 100vh;
+
+  gap: 24px;
+
+  &--desktop {
+    padding: 150px 48px;
+  }
+
+  &--mobile {
+    padding: 150px 12px;
+  }
+
+  .data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 48px;
+
+    .header {
+      .title-container {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1rem;
+
+        h2 {
+          font-family: "Orbitron";
+          font-size: 24px;
+          color: #f8ee02;
+          margin: 0px;
+        }
+
+        button mat-icon {
+          color: #f8ee02;
+          font-size: 24px;
+          height: 24px;
+          width: 24px;
+          line-height: 24px;
+        }
+      }
+    }
+
+    .form-container {
+      form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: start;
+        gap: 1rem;
+        font-size: 6px;
+
+        .section {
+          display: flex;
+          flex-direction: column;
+
+          mat-form-field {
+            width: 320px;
+            color: #f8ee02;
+            font-family: "Orbitron";
+
+            .input-prefix {
+              font-weight: 500;
+              margin: 0rem 1rem;
+              font-size: 12px;
+            }
+
+            .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+              background: rgba($color: #fff, $alpha: 0.1);
+            }
+
+            .mdc-text-field--filled:not(.mdc-text-field--disabled)
+              .mdc-text-field__input {
+              color: white;
+            }
+
+            .mdc-floating-label {
+              font-family: "Orbitron";
+              color: #f8ee02;
+              font-size: 12px;
+            }
+
+            .mat-mdc-select-value-text {
+              font-family: "Orbitron";
+              color: white;
+            }
+          }
+
+          .photo-uploader {
+            p {
+              font-family: "Open Sans";
+              font-size: 0.9rem;
+            }
+
+            .photos-container {
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+              gap: 1rem;
+
+              img {
+                width: 150px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .images-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: start;
+      align-items: center;
+      gap: 1rem;
+
+      .add-image {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        height: 360px;
+        width: 300px;
+        background: linear-gradient(180deg, #f8ee02 0%, #731dd7 100%);
+        clip-path: polygon(0 85%, 15% 0, 90% 0, 100% 10%, 85% 100%, 15% 100%);
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .add-image:hover {
+        transform: translateY(-10px);
+        filter: brightness(80%);
+        cursor: pointer;
+      }
+
+      h2 {
+        font-family: "Orbitron";
+        font-size: 24px;
+        margin: 0px;
+      }
+
+      mat-icon {
+        font-size: 48px;
+        height: 48px;
+        width: 48px;
+        line-height: 48px;
+      }
+
+      .item-photo {
+        width: 300px;
+        height: 360px;
+        overflow: hidden;
+        clip-path: polygon(0 85%, 15% 0, 90% 0, 100% 10%, 85% 100%, 15% 100%);
+        position: relative;
+
+        img {
+          height: 120%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        .delete {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+
+          mat-icon {
+            font-size: 22px;
+            height: 22px;
+            width: 22px;
+            line-height: 22px;
+          }
+        }
+      }
+    }
+
+    .actions {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+      gap: 1rem;
+
+      button {
+        font-family: "Orbitron";
+      }
+    }
+  }
+}

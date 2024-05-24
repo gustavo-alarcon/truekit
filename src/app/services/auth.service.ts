@@ -47,7 +47,7 @@ export class AuthService {
         // this.canAccessMain = true;
         this.user$ = docData(userReference, { idField: 'id' });
 
-        this.#router.navigate(['/home']);
+        this.#router.navigate(['/create-item']);
       } else {
         this.#router.navigate(['/']);
       }

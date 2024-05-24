@@ -1,1 +1,165 @@
-<p>create-item works!</p>
+<app-nav-bar></app-nav-bar>
+<div
+  class="create-container"
+  [ngClass]="{
+    'create-container--mobile': isMobile(),
+    'create-container--desktop': !isMobile()
+  }"
+>
+  <div class="data-container">
+    <div class="header">
+      <div class="title-container">
+        <button mat-icon-button [routerLink]="['/my-account']">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h2 class="title">Nuevo artículo</h2>
+      </div>
+      <img
+        src="../../../../assets/svg/line-separator-start-yellow.svg"
+        alt="separator"
+      />
+    </div>
+
+    <div class="form-container">
+      <form [formGroup]="newItemFormGroup">
+        <div class="section">
+          <mat-form-field color="accent">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="name" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Marca</mat-label>
+            <mat-select formControlName="brand">
+              @for (item of brandList; track $index) {
+              <mat-option [value]="item">{{ item }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field color="accent">
+            <mat-label>Lanzamiento</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="launchDate"
+              placeholder="MM/DD/YYYY"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status">
+              @for (item of statusList; track $index) {
+              <mat-option [value]="item">{{ item }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <h2 style="color: #f8ee02; font-family: 'Orbitron'">
+            Edición limitada
+          </h2>
+          <mat-button-toggle-group formControlName="isLimitedEdition">
+            <mat-button-toggle value="si">Si</mat-button-toggle>
+            <mat-button-toggle value="no">No</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div class="section">
+          <mat-form-field>
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category">
+              @for (item of categoryList; track $index) {
+              <mat-option [value]="item">{{ item }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Franquicia</mat-label>
+            <mat-select formControlName="franchise">
+              @for (item of franchiseList; track $index) {
+              <mat-option [value]="item">{{ item }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field color="accent">
+            <mat-label>Número de serie</mat-label>
+            <input matInput type="text" formControlName="serialNumber" />
+          </mat-form-field>
+
+          <mat-form-field color="accent">
+            <mat-label>SKU</mat-label>
+            <input matInput type="text" formControlName="sku" />
+          </mat-form-field>
+
+          <h2 style="color: #f8ee02; font-family: 'Orbitron'">Caja original</h2>
+          <mat-button-toggle-group formControlName="withBox">
+            <mat-button-toggle value="si">Si</mat-button-toggle>
+            <mat-button-toggle value="no">No</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div class="section">
+          <mat-form-field>
+            <mat-label>Descripción</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              rows="5"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <div class="images-container">
+      <input
+        style="display: none"
+        multiple
+        type="file"
+        #upload
+        (change)="uploadFile(upload)"
+      />
+      <div class="add-image" matRipple (click)="upload.click()">
+        <h2>Cargar imagen</h2>
+        <mat-icon>add_a_photo</mat-icon>
+        <div>
+          <p>Total: {{ imagesState().percentage }} %✳️</p>
+          <p>Estado: {{ imagesState().state }} ✳️</p>
+        </div>
+      </div>
+
+      @for (item of imagesState().images; track $index;) {
+      <div class="item-photo">
+        <img [src]="item" alt="" />
+        <button mat-mini-fab (click)="deleteImage(item, $index)" class="delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      }
+    </div>
+
+    <div class="actions">
+      <button mat-raised-button color="warn" [routerLink]="['/my-account']">
+        CANCELAR
+      </button>
+      <button mat-raised-button color="accent" (click)="createItem()">
+        CREAR
+      </button>
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="itemState().state === 'registering'"
+        color="accent"
+        style="width: 100%"
+      ></mat-progress-bar>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

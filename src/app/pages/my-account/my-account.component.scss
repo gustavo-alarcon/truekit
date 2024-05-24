@@ -1,0 +1,327 @@
+.my-account-wrapper {
+  min-height: 100vh;
+
+  .account-container {
+    position: relative;
+    padding: 160px 0px 120px 0px;
+    background-color: #fcee0a;
+
+    .bg-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("./../../../assets/svg/bg-elements.svg");
+      z-index: 0;
+    }
+
+    .account-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      z-index: 1;
+
+      .account-card {
+        // width: 100%;
+        min-width: 340px;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        gap: 48px;
+        padding: 28px 48px 66px 48px;
+        background: linear-gradient(180deg, #2fb2ff 0%, #731dd7 94.27%);
+        clip-path: polygon(
+          0 15%,
+          5% 0,
+          100% 0,
+          100% 80%,
+          95% 90%,
+          63% 90%,
+          60% 100%,
+          57% 90%,
+          33% 90%,
+          30% 80%,
+          27% 90%,
+          25% 90%,
+          0 90%
+        );
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16),
+          0px 3px 6px rgba(0, 0, 0, 0.23);
+
+        .user {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 24px;
+          width: 50%;
+
+          img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+          }
+
+          .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .user-name {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+              gap: 8px;
+
+              .name {
+                font-family: "Orbitron";
+                font-size: 32px;
+                font-weight: 700;
+                color: #2b2b2b;
+                margin: 0px 0px;
+                text-wrap: nowrap;
+              }
+
+              .stars {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 4px;
+
+                .star {
+                  color: yellow;
+                  font-size: 24px;
+                  width: 24px;
+                  height: 24px;
+                }
+              }
+            }
+
+            .user-level {
+              display: flex;
+              flex-direction: column;
+              justify-content: start;
+              align-items: start;
+              gap: 4px;
+
+              .level-title {
+                font-family: "Advent Pro";
+                font-size: 26px;
+                font-weight: 300;
+                margin: 0px 0px;
+              }
+              .level-bar {
+                width: 100%;
+
+                mat-progress-bar {
+                  height: 40px;
+                }
+              }
+            }
+
+            .user-states {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+              gap: 8px;
+
+              .state {
+                font-family: "Advent Pro";
+                font-size: 18px;
+                font-weight: 400;
+                padding: 8px 16px;
+                border-radius: 8px;
+
+                &--status {
+                  color: white;
+                  background-color: #731dd7;
+                  border: 1px solid rgba(255, 255, 255, 0.5);
+                }
+
+                &--admin {
+                  background-color: greenyellow;
+                  color: #2b2b2b;
+                  border: 1px solid rgba(255, 255, 255, 0.5);
+                }
+              }
+            }
+          }
+        }
+
+        .description {
+          width: 340px;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .description-title {
+            font-family: "Orbitron";
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 32px;
+            text-align: left;
+            color: #2b2b2b;
+            margin: 0px 0px;
+          }
+
+          .description-content {
+            font-family: "Open Sans";
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 22px;
+            text-align: left;
+            margin: 0px;
+          }
+        }
+      }
+
+      .account-kpis {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 48px;
+        margin-top: 48px;
+        z-index: 0;
+
+        .kpi {
+          background-color: black;
+          color: white;
+          padding: 14px 22px;
+          border-radius: 20px;
+          font-family: "Orbitron";
+
+          .title {
+            font-size: 14px;
+            font-weight: 500;
+          }
+
+          .number {
+            font-size: 56px;
+            font-weight: 700;
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+
+  .requests-container {
+    background-color: black;
+    min-height: 100vh;
+    padding: 48px 48px;
+
+    .request-wrapper {
+      background: url("./../../../assets/images/bg.png");
+      background-size: contain;
+      background-position: bottom;
+      background-repeat: no-repeat;
+      .header-container {
+        display: flex;
+        gap: 24px;
+        .header {
+          .title {
+            margin: 0px;
+            font-family: "Orbitron";
+            font-weight: 700;
+            font-size: 32px;
+            color: #fcee0a;
+          }
+        }
+      }
+
+      .table-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: start;
+
+        .row {
+          display: flex;
+          gap: 24px;
+          justify-content: start;
+          align-items: center;
+          font-family: "Open Sans";
+          font-size: 14px;
+
+          .user {
+            color: #fcee0a;
+            font-weight: 700;
+          }
+
+          .exchange {
+            color: #fcee0a;
+          }
+
+          .date {
+            span {
+              padding: 8px 4px;
+              background-color: #2fb2ff;
+              color: white;
+              border-radius: 4px;
+            }
+          }
+
+          .actions {
+            .button {
+              padding: 8px 16px;
+              border-radius: 4px;
+              cursor: pointer;
+
+              &--check {
+                background-color: #fcee0a;
+                color: #2b2b2b;
+              }
+
+              &--checked {
+                border: 1px solid #2fb2ff;
+                color: #2fb2ff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .items-container {
+    position: relative;
+    min-height: 100vh;
+    padding: 48px 48px;
+
+    .bg-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("./../../../assets/svg/bg-elements.svg");
+      z-index: 0;
+    }
+
+    .header-container {
+      display: flex;
+      gap: 24px;
+      .header {
+        .title {
+          margin: 0px;
+          font-family: "Orbitron";
+          font-weight: 700;
+          font-size: 32px;
+          color: #2b2b2b;
+        }
+      }
+    }
+
+    .items-container {
+      display: flex;
+      justify-content: start;
+      align-items: start;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 48px;
+    }
+  }
+}

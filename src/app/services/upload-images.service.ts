@@ -31,6 +31,10 @@ export class UploadImagesService {
     return this.#state();
   });
 
+  constructor() {
+    this.resetSignals();
+  }
+
   public uploadFile(input: HTMLInputElement, path: string) {
     if (!input.files) return;
 
@@ -123,5 +127,25 @@ export class UploadImagesService {
         }
       );
     }
+  }
+
+  public deleteImage(image: string, index: number) {
+    this.#state.update((value) => {
+      const images = [...value.images];
+      images.splice(index, 1);
+
+      return {
+        ...value,
+        images,
+      };
+    });
+  }
+
+  public resetSignals() {
+    this.#state.set({
+      images: [],
+      percentage: '0',
+      state: 'Esperando',
+    });
   }
 }
